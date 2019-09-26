@@ -12,4 +12,3 @@ dfm.CPI.last('3M')
 #2019-07-31    100.2
 #Name: CPI, dtype: float64
 
-
