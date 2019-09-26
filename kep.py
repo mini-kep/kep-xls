@@ -21,6 +21,7 @@ def output_csv_path(freq: str, folder: str = OUTPUT_FOLDER):
     filename = 'df{}.csv'.format(freq.lower())
     return os.path.join(folder, filename)
 
+
 def output_xl_path(folder: str = OUTPUT_FOLDER):
     return os.path.join(folder, 'df.xlsx')
 
@@ -168,9 +169,9 @@ class DataframeDict(dict):
     def __init__(self):
         dict0 = {key: pd.DataFrame() for key in FREQUENCIES}
         super().__init__(dict0)
-        
-    def save_xls(self):    
-        filepath=output_xl_path()
+
+    def save_xls(self):
+        filepath = output_xl_path()
         save_excel(filepath, self)
         return filepath
 
@@ -227,8 +228,8 @@ params = [
     ('1.12 ', 'G5', 'M', 'RETAIL_SALES'),
     ('1.12 ', 'B5', 'A', 'RETAIL_SALES'),
 
+    ('2.1 ', 'B11', 'A', 'GOV_INC_CONS_ACCUM'),
     ('2.1 ', 'B404', 'A', 'GOV_EXP_CONS_ACCUM'),
-    ('2.1 ', 'BB11', 'A', 'GOV_INC_CONS_ACCUM'),
 
     ('3.5 ', 'B7', 'A', 'CPI'),
     ('3.5 ', 'C7', 'Q', 'CPI'),
@@ -243,7 +244,7 @@ params = [
 
 df = DataframeDict()
 
-for freq in FREQUENCIES: # reading via xlwings is slow!
+for freq in FREQUENCIES:  # reading via xlwings is slow!
     for p in params:
         v = Variable(*p)
         if v.freq == freq:
