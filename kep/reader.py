@@ -7,7 +7,7 @@ def validate(frequency: str):
     if frequency.upper() not in ['A', 'Q', 'M']:
         raise ValueError(
             f"frequency must be 'A', 'Q' or 'M', got '{frequency}'")
-        
+
 
 def read_csv(source) -> pd.DataFrame():
     """
@@ -30,9 +30,9 @@ def proxy(path):
     return StringIO(content)
 
 
-def read_df(freq):
-    from files import SourceFiles
-    path = SourceFiles().csvpath(freq)
+def read_df(freq, folder=None):
+    from kep.files import OutputFiles
+    path = OutputFiles(folder).persist().csvpath(freq)
     filelike = proxy(path)
     return read_csv(filelike)
 

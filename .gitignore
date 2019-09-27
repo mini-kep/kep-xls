@@ -1,6 +1,7 @@
 *.rar
 *.xlsx
 !df.xlsx
+!agro.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
