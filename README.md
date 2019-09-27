@@ -1,18 +1,23 @@
+![](carbon.png)
+
 # kep-xls
 
-Get Rosstat macroeconomic time series.
+Get [Rosstat macroeconomic time series](https://www.gks.ru/compendium/document/50802) 
+as clean CSV files, importable by pandas or R.
 
-Rosstat publishes some macroeconomic time series as Excel files since 2019 ([source](https://www.gks.ru/compendium/document/50802)). 
-With kep you can either build this data from downloaded Excel file or get clean timeseries directly from stable URLs.
+### Data access
 
-
-### Usage 
+Use  `kep.download_dataframes()` to download the data from stable URLs.
 
 ```python 
 from kep import download_dataframes
 
 dfa, dfq, dfm = download_dataframes()
+```
 
+### Usage example
+
+```python 
 # Какой объем ВВП в России?
 gdp = dfa.GDP_RUB['2018']
 # 2018-12-31    103876.0
@@ -26,28 +31,6 @@ dfm.CPI.last('1M').index[0].strftime('%Y-%m')
 # '2019-07'
 ```
 
-![](carbon.png)
-
-### Download clean data
-
-With `kep.download_dataframes()` you can download the data from stable URLs.
-
-```python 
-from kep import download_dataframes
-
-dfa, dfq, dfm = download_dataframes()
-```
-
-
-### Build dataset locally
-
-`kep_build.py` saves timeseries as local CSV files importable by pandas or R. 
-
-```
-pip install -r requirements.txt
-python kep-build.py
-```
-
 ### Variables
 
 10 variables currently produced: 
@@ -58,3 +41,12 @@ python kep-build.py
 
 We have it [here](https://github.com/mini-kep/kep-xls/blob/master/output/df.xlsx?raw=true).
 
+### Build locally 
+
+
+`kep_build.py` creates local CSV files. 
+
+```
+pip install -r requirements.txt
+python kep-build.py
+```
