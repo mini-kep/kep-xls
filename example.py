@@ -1,14 +1,18 @@
-from read import download_annual, download_monthly
+from kep import download_dataframes
 
-dfa = download_annual()
-dfa.GDP_RUB['2018']
+dfa, dfq, dfm = download_dataframes()
+
+# ВВП у нас какой вообще?
+gdp = dfa.GDP_RUB['2018']
 # 2018-12-31    103876.0
 
-dfm = download_monthly()
-dfm.CPI.last('3M')
+# A инфляция сколько?
+cpi = dfm.CPI.last('12M').divide(100).product().round(3) * 100
+# 104.5
 
-#2019-05-31    100.3
-#2019-06-30    100.0
-#2019-07-31    100.2
-#Name: CPI, dtype: float64
+# А на какой месяц это данные?
+dfm.CPI.last('1M').index[0]
+# Timestamp('2019-07-31 00:00:00')
 
+# А что с курсом?
+# А ничего, еще парсер не подключил.

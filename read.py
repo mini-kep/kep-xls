@@ -46,13 +46,17 @@ def read_df(freq):
     return read_csv(filelike)
 
 
-def download_dataframe(freq):
-    freq = freq.lower()
-    if freq not in ['a', 'q', 'm']:
-        raise ValueError(freq)
+def download_dataframe(frequency):
+    validate(frequency)
+    freq = frequency.lower()
     url = ('https://raw.githubusercontent.com/mini-kep/kep-xls/master/output/'
            f'df{freq}.csv')
     return pd.read_csv(url, converters={0: pd.to_datetime}, index_col=0)
+
+
+def download_dataframes():
+    dfa, dfq, dfm = [download_dataframe(frequency) for frequency in 'aqm']
+    return dfa, dfq, dfm
 
 
 def download_annual():
