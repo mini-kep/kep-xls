@@ -1,33 +1,40 @@
 # kep-xls
-Import macroeconomic time series from Excel files published by Rosstat.
 
-- From 2019 Rosstat publishes several macroeconomic time series as Excel files ([source](https://www.gks.ru/compendium/document/50802)) 
-- `kep.py` is hardcoded to extract latest data release as of September 2018
-- `kep.py` saves time series as local CSV files importable by pandas or R, it also saves an Excel file
-- 10 variables currently produced: COMM_FREIGHT, CPI, GDP_INDEX, GDP_RUB, GOV_EXP_CONS_ACCUM, 
-GOV_INC_CONS_ACCUM, INVEST_INDEX, INVEST_RUB, RETAIL_SALES, WAGE.
+Get Rosstat macroeconomic time series.
+
+- Starting 2019 Rosstat publishes some macroeconomic time series as Excel files ([source](https://www.gks.ru/compendium/document/50802)) 
+- `kep_build.py` saves time series as local CSV files importable by pandas or R. It also saves same data in an [Excel file](https://github.com/mini-kep/kep-xls/blob/master/output/df.xlsx?raw=true)
+- With `kep.py` you can download data from stable URLs in this repo.
 
 ### Usage 
 
 ```python 
-from read import download_annual, download_quarterly, download_monthly
+from kep import download_dataframes
 
-dfa = download_annual()
-dfa.GDP_RUB['2018']
+dfa, dfq, dfm = download_dataframes()
+
+# ВВП у нас какой вообще?
+gdp = dfa.GDP_RUB['2018']
 # 2018-12-31    103876.0
 
-dfm = download_monthly()
-dfm.CPI.last('3M')
+# A инфляция сколько?
+cpi = dfm.CPI.last('12M').divide(100).product().round(3) * 100
+# 104.5
 
-#2019-05-31    100.3
-#2019-06-30    100.0
-#2019-07-31    100.2
-#Name: CPI, dtype: float64
+# А на какой месяц это данные?
+dfm.CPI.last('1M').index[0]
+# Timestamp('2019-07-31 00:00:00')
 ```
 
 ### Build dataset locally
 
 ```
 pip install -r requirements.txt
-python kep.py
+python kep_build.py
 ```
+
+### Variables
+
+10 variables currently produced: 
+`COMM_FREIGHT`, `CPI`, `GDP_INDEX`, `GDP_RUB`, `GOV_EXP_CONS_ACCUM`, 
+`GOV_INC_CONS_ACCUM`, `INVEST_INDEX`, `INVEST_RUB`, `RETAIL_SALES`, `WAGE`.
