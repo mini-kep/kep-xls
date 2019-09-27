@@ -11,7 +11,7 @@ def test_save_all(tempdir):
             Variable('1.3.', 'C7', 'Q', 'AGROPROD'),
             Variable('1.3.', 'G7', 'A', 'AGROPROD')
         ]         
-    save_all(xlpath, vs, tempdir        
+    save_all(xlpath, vs, tempdir)        
     #FIXME save_all(xlpath, vs, tempdir) vs read_df() not working.    
     #assert list(save_all(xlpath, vs, tempdir)) == 1
     #dfa = read_df('a', tempdir)
