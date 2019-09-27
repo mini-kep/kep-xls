@@ -26,7 +26,7 @@ dfm.CPI.last('1M').index[0].strftime('%Y-%m')
 # '2019-07'
 ```
 
-![](https://carbon.now.sh/16ed3f0c-69fc-478a-b86b-c72e6dd8b07c)
+![](blob:https://carbon.now.sh/16ed3f0c-69fc-478a-b86b-c72e6dd8b07c)
 
 ### Download clean data
 
