@@ -1,4 +1,4 @@
-LOCATIONS = [
+RANGES = [
     ('1.1. ', 'B9', 'A', 'GDP_RUB'),
     ('1.1. ', 'C9', 'Q', 'GDP_RUB'),
 

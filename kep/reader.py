@@ -1,27 +1,17 @@
-import os
 from pathlib import Path
 from io import StringIO
 import pandas as pd
-
-
-OUTPUT_FOLDER = 'output'
 
 
 def validate(frequency: str):
     if frequency.upper() not in ['A', 'Q', 'M']:
         raise ValueError(
             f"frequency must be 'A', 'Q' or 'M', got '{frequency}'")
-
-
-def output_csv_path(freq: str, folder: str = OUTPUT_FOLDER):
-    validate(freq)
-    filename = 'df{}.csv'.format(freq.lower())
-    return os.path.join(folder, filename)
-
+        
 
 def read_csv(source) -> pd.DataFrame():
     """
-    Wrapper for pd.read_csv(). Treats first column as time index.
+    Custom settings for pd.read_csv(). Treats first column as time index.
     """
     return pd.read_csv(source,
                        converters={0: pd.to_datetime},
@@ -41,13 +31,13 @@ def proxy(path):
 
 
 def read_df(freq):
-    path = output_csv_path(freq)
+    from files import SourceFiles
+    path = SourceFiles().csvpath(freq)
     filelike = proxy(path)
     return read_csv(filelike)
 
 
 def download_dataframe(frequency):
-    validate(frequency)
     freq = frequency.lower()
     url = ('https://raw.githubusercontent.com/mini-kep/kep-xls/master/output/'
            f'df{freq}.csv')
@@ -57,15 +47,3 @@ def download_dataframe(frequency):
 def download_dataframes():
     dfa, dfq, dfm = [download_dataframe(frequency) for frequency in 'aqm']
     return dfa, dfq, dfm
-
-
-def download_annual():
-    return download_dataframe('a')
-
-
-def download_quarterly():
-    return download_dataframe('q')
-
-
-def download_monthly():
-    return download_dataframe('m')
