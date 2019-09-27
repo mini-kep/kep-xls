@@ -2,7 +2,7 @@ from kep import download_dataframes
 
 dfa, dfq, dfm = download_dataframes()
 
-# Какой объем ВВП в России ?
+# Какой объем ВВП в России?
 gdp = dfa.GDP_RUB['2018']
 # 2018-12-31    103876.0
 
